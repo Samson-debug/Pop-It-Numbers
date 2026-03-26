@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6901f3f1aee284bdcbaeaf22ca80f091, type: 3}
+  m_Name: Layout_Number_5
+  m_EditorClassIdentifier: Assembly-CSharp::BubbleLayoutData
+  bubbles:
+  - position: {x: -1.01, y: 0.46}
+    size: 0.23999998
+  - position: {x: -0.54, y: 0.53}
+    size: 0.18
+  - position: {x: -0.1, y: 0.58}
+    size: 0.18
+  - position: {x: 0.39, y: 0.55}
+    size: 0.23
+  - position: {x: 0.85, y: 0.21}
+    size: 0.28
+  - position: {x: 1.02, y: -0.47}
+    size: 0.34
+  - position: {x: 0.65, y: -1.05}
+    size: 0.3
+  - position: {x: 0.02, y: -1.27}
+    size: 0.28
+  - position: {x: -0.66, y: -1.15}
+    size: 0.28
+  - position: {x: -1.09, y: -0.64}
+    size: 0.3
+  - position: {x: -0.84, y: 1.03}
+    size: 0.32
+  - position: {x: -0.7, y: 1.62}
+    size: 0.26
+  - position: {x: -0.12, y: 1.65}
+    size: 0.26
+  - position: {x: 0.46, y: 1.65}
+    size: 0.26
+  - position: {x: 1.05, y: 1.65}
+    size: 0.26

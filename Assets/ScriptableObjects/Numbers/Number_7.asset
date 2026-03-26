@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8471cf0546bce4ce5a5f10729d59c669, type: 3}
+  m_Name: Number_7
+  m_EditorClassIdentifier: Assembly-CSharp::LetterData
+  number: 7
+  numberSprite: {fileID: 7028616704906629411, guid: 90d0a325180ad41d6aa35470eadde2d5, type: 3}
+  bubbleColor: 3
+  bubbleLayout: {fileID: 11400000, guid: 7400f11a8d6dc4df3820f6352fb8cf90, type: 2}
