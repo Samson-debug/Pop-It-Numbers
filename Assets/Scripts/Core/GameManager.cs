@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -45,6 +46,10 @@ public class GameManager : MonoBehaviour
     public Transform letterPuzzleArea;
     public UIManager uiManager;
 
+    [Header("Puzzle Layout")]
+    [Tooltip("The scale at which the letter puzzle spawns (default is 1, 1, 1).")]
+    public Vector3 letterSpawnScale = Vector3.one;
+
     [Header("Animation Setup")]
     public GameObject jiggleLetterObject;
 
@@ -68,6 +73,11 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         RegisterBubbleSprites();
+    }
+
+    private void Start()
+    {
+        StartGame();
     }
 
     public void ReturnToLobby()
@@ -126,7 +136,7 @@ public class GameManager : MonoBehaviour
         _currentPuzzle = Instantiate(letterPuzzlePrefab, letterPuzzleArea);
         _currentPuzzle.transform.localPosition = Vector3.zero;
         _currentPuzzle.transform.localRotation = Quaternion.identity;
-        _currentPuzzle.transform.localScale    = Vector3.one;
+        _currentPuzzle.transform.localScale    = letterSpawnScale;
 
         _currentPuzzle.Initialize(numbers[index], bubblePrefab);
         _currentPuzzle.OnLetterCompleted += HandleNumberCompleted;
@@ -252,9 +262,10 @@ public class GameManager : MonoBehaviour
                     targetWorldSize = new Vector3(Mathf.Abs(p2.x - p1.x), Mathf.Abs(p2.y - p1.y), 1f);
                 }
 
+                float uniformScale = targetWorldSize.y / unscaledSize.y;
                 targetScale = new Vector3(
-                    targetWorldSize.x / unscaledSize.x,
-                    targetWorldSize.y / unscaledSize.y,
+                    uniformScale,
+                    uniformScale,
                     originalScale.z);
             }
 

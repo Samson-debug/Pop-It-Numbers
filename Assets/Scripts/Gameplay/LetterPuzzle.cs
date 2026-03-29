@@ -100,7 +100,6 @@ public class LetterPuzzle : MonoBehaviour
             b.poppedSprite   = poppedSprite;
 
             b.OnPopped   += OnBubblePopped;
-            b.OnUnpopped += OnBubbleUnpopped;
 
             b.ResetBubble();
 
@@ -151,14 +150,14 @@ public class LetterPuzzle : MonoBehaviour
 
         if (closestBubble == null) return;
 
-        closestBubble.TryPop();
-
-        if (_puzzleAnim != null) StopCoroutine(_puzzleAnim);
-        _puzzleAnim = StartCoroutine(PuzzleScalePunch());
+        if (closestBubble.TryPop())
+        {
+            if (_puzzleAnim != null) StopCoroutine(_puzzleAnim);
+            _puzzleAnim = StartCoroutine(PuzzleScalePunch());
+        }
     }
 
     private void OnBubblePopped(Bubble b)   => CheckCompletion();
-    private void OnBubbleUnpopped(Bubble b) => CheckCompletion();
 
     private void CheckCompletion()
     {

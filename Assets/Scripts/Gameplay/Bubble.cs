@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Represents one pop-it bubble on the letter board.
 ///
-/// Bubbles default to "popped out" (raised). Tapping toggles between
-/// popped-in (depressed) and popped-out (raised). A punch-scale animation
-/// and haptic feedback fire on every tap.
+/// Bubbles default to "popped out" (raised). Tapping pops the bubble in
+/// (depressed). A punch-scale animation and haptic feedback fire on tap.
+/// Bubbles cannot be manually toggled back once popped.
 ///
 /// Attach to a GameObject that also has:
 ///   - SpriteRenderer   (displays raised / depressed state)
@@ -61,8 +61,7 @@ public class Bubble : MonoBehaviour
     /// <summary>Fired when this bubble is toggled INTO the popped-in state.</summary>
     public event Action<Bubble> OnPopped;
 
-    /// <summary>Fired when this bubble is toggled back to the raised state.</summary>
-    public event Action<Bubble> OnUnpopped;
+
 
     /// <summary>Fired on any tap (pop-in or pop-out) for global listeners.</summary>
     public static event Action OnAnyBubblePopped;
@@ -89,36 +88,38 @@ public class Bubble : MonoBehaviour
     // ------------------------------------------------------------------ //
 
     /// <summary>
-    /// Toggle this bubble between popped-in and popped-out.
+    /// Pops this bubble in (from raised to depressed).
     /// Fires a punch-scale animation and haptic feedback on every tap.
+    /// Bubbles can only be popped once and cannot be toggled back.
+    /// Returns true if successfully popped, false if already popped.
     /// </summary>
-    public void TryPop()
+    public bool TryPop()
     {
+        if (IsPopped) return false;
+
         // Toggle state
-        IsPopped = !IsPopped;
+        IsPopped = true;
 
         // Visual: switch sprite to match new state
-        _sr.sprite = IsPopped ? poppedSprite : unpoppedSprite;
+        _sr.sprite = poppedSprite;
 
-        // Audio: play pop sound (works for both directions)
+        // Audio: play pop sound
         if (audioSource != null && audioSource.clip != null)
             audioSource.Play();
 
-        // Squash & stretch animation (direction-aware)
+        // Squash & stretch animation
         if (_punchCoroutine != null)
             StopCoroutine(_punchCoroutine);
-        _punchCoroutine = StartCoroutine(SquashAndStretch(IsPopped));
+        _punchCoroutine = StartCoroutine(SquashAndStretch(true));
 
         // Haptic feedback
         TriggerHaptic();
 
         // Notify listeners
-        if (IsPopped)
-            OnPopped?.Invoke(this);
-        else
-            OnUnpopped?.Invoke(this);
+        OnPopped?.Invoke(this);
 
         OnAnyBubblePopped?.Invoke();
+        return true;
     }
 
     /// <summary>
